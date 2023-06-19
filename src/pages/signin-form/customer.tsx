@@ -2,6 +2,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 
 import Button from 'components/Button';
 import Input from 'components/Input';
+import Select from 'components/Select';
 
 function customer() {
   const {
@@ -20,6 +21,12 @@ function customer() {
         name="name"
         register={register}
         placeholder="Digite seu nome"
+      />
+
+      <Select
+        register={register}
+        options={['CPF', 'RG']}
+        label="Tipo de Documento"
       />
 
       <Input
