@@ -1,20 +1,37 @@
+import { useRouter } from 'next/router';
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form';
+
+interface User {
+  name: string;
+  document: string;
+}
 
 import Select from './/Select';
 import Button from './Button';
 import Input from './Input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import useLocalStorage from 'hooks/useLocalStorage';
 import schemaLoginCustomer from 'validations/schemaLoginCustomer';
 
 function FormLoginCustomer() {
+  const route = useRouter();
+  const [value, setValue] = useLocalStorage<User>('user', {
+    name: '',
+    document: ''
+  });
+
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaLoginCustomer) });
-  const handleSubmit = ({ document, name, typeDocument }: FieldValues) => {
-    console.log(document);
+  const handleSubmit = ({ document, name }: FieldValues) => {
+    if (typeof setValue === 'function') {
+      setValue({ ...value, name, document });
+    }
+
+    route.push('/home');
   };
 
   return (
