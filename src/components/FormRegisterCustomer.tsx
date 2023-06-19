@@ -6,13 +6,13 @@ import Button from './Button';
 import Input from './Input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import schemaLoginCustomer from 'validations/schemaLoginCustomer';
+import schemaRegisterCustomer from 'validations/schemaRegisterCustomer';
 function FormRegisterCustomer() {
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schemaLoginCustomer) });
+  } = useForm({ resolver: yupResolver(schemaRegisterCustomer) });
   const handleSubmit = (values: FieldValues) => {
     console.log(values);
   };
