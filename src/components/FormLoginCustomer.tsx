@@ -14,7 +14,7 @@ function FormLoginCustomer() {
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaLoginCustomer) });
   const handleSubmit = ({ document, name, typeDocument }: FieldValues) => {
-    console.log(event);
+    console.log(document);
   };
 
   return (
