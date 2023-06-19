@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form';
 
@@ -6,21 +7,79 @@ import Button from './Button';
 import Input from './Input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
+import useLocalStorage from 'hooks/useLocalStorage';
 import schemaRegisterCustomer from 'validations/schemaRegisterCustomer';
+const states = [
+  'AC',
+  'AL',
+  'AP',
+  'AM',
+  'BA',
+  'CE',
+  'DF',
+  'ES',
+  'GO',
+  'MA',
+  'MT',
+  'MS',
+  'MG',
+  'PA',
+  'PB',
+  'PR',
+  'PE',
+  'PI',
+  'RJ',
+  'RN',
+  'RS',
+  'RO',
+  'RR',
+  'SC',
+  'SP',
+  'SE',
+  'TO'
+];
+interface IRegisterUser {
+  nome: '';
+  numeroDocumento: '';
+}
 function FormRegisterCustomer() {
+  const route = useRouter();
+  const [value, setValue] = useLocalStorage<IRegisterUser>('user', {
+    nome: '',
+    numeroDocumento: ''
+  });
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaRegisterCustomer) });
-  const handleSubmit = (values: FieldValues) => {
-    console.log(values);
+  const handleSubmit = async (newValues: FieldValues) => {
+    const request = await axios.post(
+      'https://api-deslocamento.herokuapp.com/api/v1/Cliente',
+      {
+        ...newValues
+      }
+    );
+    if (request.status !== 200) {
+      return alert('Algum erro aconteceu, tente novamente');
+    }
+
+    if (typeof setValue === 'function') {
+      setValue({
+        ...value,
+        nome: newValues.nome,
+        numeroDocumento: newValues.nunumeroDocumento
+      });
+    }
+
+    route.push('/home');
   };
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
       <Input
         label="Nome"
-        name="name"
+        name="nome"
         register={register as unknown as UseFormRegister<FieldValues>}
         placeholder="Digite seu nome"
         errors={errors}
@@ -28,12 +87,13 @@ function FormRegisterCustomer() {
 
       <Select
         register={register as unknown as UseFormRegister<FieldValues>}
-        options={['CPF', 'RG']}
+        options={['RG', 'CPF']}
         label="Tipo de Documento"
+        name="tipoDocumento"
       />
 
       <Input
-        name="document"
+        name="numeroDocumento"
         placeholder="Digite o documento"
         register={register as unknown as UseFormRegister<FieldValues>}
         label="Documento"
@@ -41,7 +101,7 @@ function FormRegisterCustomer() {
       />
 
       <Input
-        name="publicPlace"
+        name="logradouro"
         placeholder="Digite o logradouro"
         register={register as unknown as UseFormRegister<FieldValues>}
         label="Logradouro"
@@ -49,7 +109,7 @@ function FormRegisterCustomer() {
       />
 
       <Input
-        name="houseNumber"
+        name="numero"
         placeholder="Digite o numero da casa"
         register={register as unknown as UseFormRegister<FieldValues>}
         label="Número"
@@ -57,7 +117,7 @@ function FormRegisterCustomer() {
       />
 
       <Input
-        name="district"
+        name="bairro"
         placeholder="Digite o bairro"
         register={register as unknown as UseFormRegister<FieldValues>}
         label="Bairro"
@@ -65,19 +125,18 @@ function FormRegisterCustomer() {
       />
 
       <Input
-        name="city"
+        name="cidade"
         placeholder="Digite a ciadade"
         register={register as unknown as UseFormRegister<FieldValues>}
         label="Cidade"
         errors={errors}
       />
 
-      <Input
-        name="state"
-        placeholder="Digite o Estado"
+      <Select
         register={register as unknown as UseFormRegister<FieldValues>}
-        label="UF"
-        errors={errors}
+        options={states}
+        label="Estado"
+        name="uf"
       />
 
       <Button type="submit" actionName="Cadastrar" />

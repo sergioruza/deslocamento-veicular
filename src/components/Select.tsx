@@ -4,13 +4,14 @@ interface SelectProps {
   options: string[];
   register: UseFormRegister<FieldValues>;
   label: string;
+  name: string;
 }
 
-const Select = ({ options, register, label }: SelectProps) => {
+const Select = ({ options, register, label, name }: SelectProps) => {
   return (
     <div>
       <label>{label}</label>
-      <select {...register('typeDocument')}>
+      <select {...register(name)}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form';
 
-interface User {
-  name: string;
-  document: string;
+export interface IUser {
+  nome: string;
+  numeroDocumento: string;
 }
 
 import Select from './/Select';
@@ -16,9 +16,9 @@ import schemaLoginCustomer from 'validations/schemaLoginCustomer';
 
 function FormLoginCustomer() {
   const route = useRouter();
-  const [value, setValue] = useLocalStorage<User>('user', {
-    name: '',
-    document: ''
+  const [value, setValue] = useLocalStorage<IUser>('user', {
+    nome: '',
+    numeroDocumento: ''
   });
 
   const {
@@ -28,7 +28,7 @@ function FormLoginCustomer() {
   } = useForm({ resolver: yupResolver(schemaLoginCustomer) });
   const handleSubmit = ({ document, name }: FieldValues) => {
     if (typeof setValue === 'function') {
-      setValue({ ...value, name, document });
+      setValue({ ...value, nome: name, numeroDocumento: document });
     }
 
     route.push('/home');
@@ -48,6 +48,7 @@ function FormLoginCustomer() {
         register={register as unknown as UseFormRegister<FieldValues>}
         options={['CPF', 'RG']}
         label="Tipo de Documento"
+        name="typeDocument"
       />
 
       <Input
