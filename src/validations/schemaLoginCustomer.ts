@@ -1,11 +1,6 @@
-import { object, string, ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-interface User {
-  name: string;
-  document: string;
-}
-
-const schemaLoginCustomer: ObjectSchema<User> = object({
+const schemaLoginCustomer = object({
   name: string()
     .required('Campo obrigatório')
     .min(5, 'O campo deve ter no mínimo 5 caracteres'),
