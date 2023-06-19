@@ -1,32 +1,18 @@
-import React, { ChangeEvent, useState } from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface InputProps {
-  onChange: (value: string) => void;
-  name: string;
-  type: string;
   placeholder: string;
+  register: UseFormRegister<FieldValues>;
+  name: string;
+  label: string;
+  type?: string;
 }
 
-function Input({ onChange, type, placeholder, name }: InputProps) {
-  const [value, setValue] = useState('');
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-
-    // Chama a função de callback do componente pai passando o novo valor
-    onChange(newValue);
-  };
-
+function Input({ register, placeholder, name, label, type }: InputProps) {
   return (
     <div>
-      <label>{name}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-      />
+      <label>{label}</label>
+      <input type={type} placeholder={placeholder} {...register(name)} />
     </div>
   );
 }
