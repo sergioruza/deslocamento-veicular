@@ -9,9 +9,9 @@ import Select from './Select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import useLocalStorage from 'hooks/useLocalStorage';
-import schemaRegisterConductor from 'validations/schemaRegisterCunductor';
+import schemaRegisterConductor from 'validations/schemaRegisterConductor';
 
-interface IconductorStorage {
+export interface IconductorStorage {
   nome: string;
   numeroHabilitacao: string;
 }

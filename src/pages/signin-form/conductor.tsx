@@ -1,7 +1,13 @@
 import React from 'react';
 
+import FormLoginCunductor from 'components/FormLoginCunductor';
+
 function conductor() {
-  return <div>conductor</div>;
+  return (
+    <div>
+      <FormLoginCunductor />
+    </div>
+  );
 }
 
 export default conductor;
