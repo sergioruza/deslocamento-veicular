@@ -1,7 +1,11 @@
-import React from 'react';
+import HomeCustomer from 'components/HomeCustomer';
 
 function home() {
-  return <div>home</div>;
+  return (
+    <div>
+      <HomeCustomer />
+    </div>
+  );
 }
 
 export default home;
