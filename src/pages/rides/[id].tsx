@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import Button from 'components/Button';
 import CardRideDetails from 'components/CardRideDetails';
 import { IRides } from 'components/RidesComponent';
 
@@ -18,6 +19,13 @@ function RideId() {
     };
     getRide(id as string);
   }, []);
+
+  async function handleClick() {
+    await axios.delete(
+      `https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/${id}`
+    );
+    router.push('/rides/history');
+  }
   return (
     <div>
       {!ride ? (
@@ -33,6 +41,11 @@ function RideId() {
           observacao={ride.observacao}
         />
       )}
+      <Button
+        actionName="Deletar corrida"
+        type="button"
+        onClick={handleClick}
+      />
     </div>
   );
 }
