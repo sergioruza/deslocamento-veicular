@@ -7,21 +7,26 @@ import Input from './Input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import schemaStartRide from 'validations/schemaStartRide';
-function FormStartRide() {
+
+interface IFormStartRideProps {
+  idConductor: number;
+}
+
+function FormStartRide({ idConductor }: IFormStartRideProps) {
   const route = useRouter();
 
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schemaStartRide) });
+  } = useForm();
   const handleSubmit = ({
     kmInicial,
     checkList,
     motivo,
     observacao
   }: FieldValues) => {
-    // route.push('/R');
+    console.log(idConductor);
   };
   return (
     <div>
