@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import schemaStartRide from 'validations/schemaStartRide';
 
 interface IFormStartRideProps {
-  idConductor: number;
+  idConductor: number | undefined;
 }
 
 function FormStartRide({ idConductor }: IFormStartRideProps) {
