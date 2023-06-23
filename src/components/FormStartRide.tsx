@@ -30,31 +30,21 @@ function FormStartRide({ idConductor, cars }: IFormStartRideProps) {
     motivo,
     observacao
   }: FieldValues) => {
-    // await axios.post(
-    //   'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
-    //   {
-    //     kmInicial,
-    //     inicioDeslocamento: Date.now(),
-    //     checkList,
-    //     motivo,
-    //     observacao,
-    //     idCondutor: idConductor,
-    //     idVeiculo: cars[0].id,
-    //     idCliente: id
-    //   }
-    // );
-    console.log({
-      kmInicial,
-      inicioDeslocamento: Date.now(),
-      checkList,
-      motivo,
-      observacao,
-      idCondutor: idConductor,
-      idVeiculo: cars[0].id,
-      idCliente: id
-    });
+    await axios.post(
+      'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
+      {
+        kmInicial,
+        inicioDeslocamento: Date.now(),
+        checkList,
+        motivo,
+        observacao,
+        idCondutor: idConductor,
+        idVeiculo: cars[0].id,
+        idCliente: id
+      }
+    );
 
-    // route.push('/rides/history');
+    route.push('/rides/history');
   };
   return (
     <div>
