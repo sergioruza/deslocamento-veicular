@@ -161,23 +161,21 @@ const mockCar = [
 function startRide() {
   const [idConductor, setIdConductor] = useState<number>();
   const [conductors, setConductores] = useState([]);
-  const [cars, setCars] = useState<car[]>([]);
+  const [cars, setCars] = useState<car[]>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     conductorAndVeichles();
+    setLoading(false);
   }, []);
 
   const conductorAndVeichles = async () => {
-    const getConductor = await axios.get(
-      'https://api-deslocamento.herokuapp.com/api/v1/Condutor'
-    );
-    const getCars = await axios.get(
-      'https://api-deslocamento.herokuapp.com/api/v1/Veiculo'
-    );
-    setConductores(getConductor.data);
-    setCars(getCars.data);
-    setLoading(false);
+    await axios
+      .get('https://api-deslocamento.herokuapp.com/api/v1/Condutor')
+      .then(({ data }) => setConductores(data));
+    await axios
+      .get('https://api-deslocamento.herokuapp.com/api/v1/Veiculo')
+      .then(({ data }) => setCars(data));
   };
   return (
     <div>
@@ -185,13 +183,11 @@ function startRide() {
         <span>Loading...</span>
       ) : (
         <>
-          <Conductors
-            cars={cars}
-            setIdConductor={setIdConductor}
-            conductors={conductors}
-          />
+          <Conductors setIdConductor={setIdConductor} conductors={conductors} />
 
-          <FormStartRide idCar={cars} idConductor={idConductor} />
+          {cars && cars.length > 0 && (
+            <FormStartRide cars={cars} idConductor={idConductor} />
+          )}
         </>
       )}
     </div>

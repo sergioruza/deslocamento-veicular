@@ -12,10 +12,10 @@ import axios from 'axios';
 
 interface IFormStartRideProps {
   idConductor: number | undefined;
-  idCar: car[];
+  cars: car[];
 }
 
-function FormStartRide({ idConductor, idCar }: IFormStartRideProps) {
+function FormStartRide({ idConductor, cars }: IFormStartRideProps) {
   const route = useRouter();
   const id = JSON.parse(localStorage.getItem('user') as string).id;
 
@@ -30,21 +30,31 @@ function FormStartRide({ idConductor, idCar }: IFormStartRideProps) {
     motivo,
     observacao
   }: FieldValues) => {
-    await axios.post(
-      'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
-      {
-        kmInicial,
-        inicioDeslocamento: Date.now(),
-        checkList,
-        motivo,
-        observacao,
-        idCondutor: idConductor,
-        idVeiculo: idCar,
-        idCliente: id
-      }
-    );
+    // await axios.post(
+    //   'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
+    //   {
+    //     kmInicial,
+    //     inicioDeslocamento: Date.now(),
+    //     checkList,
+    //     motivo,
+    //     observacao,
+    //     idCondutor: idConductor,
+    //     idVeiculo: cars[0].id,
+    //     idCliente: id
+    //   }
+    // );
+    console.log({
+      kmInicial,
+      inicioDeslocamento: Date.now(),
+      checkList,
+      motivo,
+      observacao,
+      idCondutor: idConductor,
+      idVeiculo: cars[0].id,
+      idCliente: id
+    });
 
-    route.push('/rides/history');
+    // route.push('/rides/history');
   };
   return (
     <div>
@@ -62,7 +72,7 @@ function FormStartRide({ idConductor, idCar }: IFormStartRideProps) {
           name="checkList"
           placeholder="Digite seu checklist"
           register={register as unknown as UseFormRegister<FieldValues>}
-          label="Numero habilitação"
+          label="CheckList"
           errors={errors}
         />
 
