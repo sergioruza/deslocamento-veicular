@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Conductors from 'components/Conductors';
-import { car, conductor } from 'components/Conductors';
+import { car } from 'components/Conductors';
 import FormStartRide from 'components/FormStartRide';
 
 import axios from 'axios';
@@ -160,9 +160,8 @@ const mockCar = [
 ];
 function startRide() {
   const [idConductor, setIdConductor] = useState<number>();
-  const [conductors, setConductores] = useState();
-  const [cars, setCars] = useState();
-  const [idCar, setIdCar] = useState<number>();
+  const [conductors, setConductores] = useState([]);
+  const [cars, setCars] = useState<car[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -186,13 +185,13 @@ function startRide() {
         <span>Loading...</span>
       ) : (
         <>
-          <FormStartRide idConductor={idConductor} />
           <Conductors
             cars={cars}
             setIdConductor={setIdConductor}
             conductors={conductors}
-            setIdCar={setIdCar}
           />
+
+          <FormStartRide idCar={cars} idConductor={idConductor} />
         </>
       )}
     </div>

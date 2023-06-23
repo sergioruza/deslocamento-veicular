@@ -2,31 +2,49 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form';
 
+import { car } from 'components/Conductors';
+
 import Button from './Button';
 import Input from './Input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import schemaStartRide from 'validations/schemaStartRide';
+import axios from 'axios';
 
 interface IFormStartRideProps {
   idConductor: number | undefined;
+  idCar: car[];
 }
 
-function FormStartRide({ idConductor }: IFormStartRideProps) {
+function FormStartRide({ idConductor, idCar }: IFormStartRideProps) {
   const route = useRouter();
+  const id = JSON.parse(localStorage.getItem('user') as string).id;
 
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm();
-  const handleSubmit = ({
+  const handleSubmit = async ({
     kmInicial,
     checkList,
     motivo,
     observacao
   }: FieldValues) => {
-    console.log(idConductor);
+    await axios.post(
+      'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
+      {
+        kmInicial,
+        inicioDeslocamento: Date.now(),
+        checkList,
+        motivo,
+        observacao,
+        idCondutor: idConductor,
+        idVeiculo: idCar,
+        idCliente: id
+      }
+    );
+
+    route.push('/rides/history');
   };
   return (
     <div>
