@@ -34,7 +34,7 @@ function FormStartRide({ idConductor, cars }: IFormStartRideProps) {
       'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento/IniciarDeslocamento',
       {
         kmInicial,
-        inicioDeslocamento: Date.now(),
+        inicioDeslocamento: new Date().toISOString(),
         checkList,
         motivo,
         observacao,
