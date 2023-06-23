@@ -40,14 +40,16 @@ const states = [
   'TO'
 ];
 interface IRegisterUser {
-  nome: '';
-  numeroDocumento: '';
+  nome: string;
+  numeroDocumento: string;
+  id: string;
 }
 function FormRegisterCustomer() {
   const route = useRouter();
   const [value, setValue] = useLocalStorage<IRegisterUser>('user', {
     nome: '',
-    numeroDocumento: ''
+    numeroDocumento: '',
+    id: ''
   });
   const {
     register,
@@ -69,7 +71,8 @@ function FormRegisterCustomer() {
       setValue({
         ...value,
         nome: newValues.nome,
-        numeroDocumento: newValues.nunumeroDocumento
+        numeroDocumento: newValues.nunumeroDocumento,
+        id: request.data
       });
     }
 
