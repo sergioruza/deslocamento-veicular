@@ -14,7 +14,8 @@ function FormLoginCunductor() {
   const route = useRouter();
   const [value, setValue] = useLocalStorage<IconductorStorage>('user', {
     id: '',
-    numeroHabilitacao: ''
+    numeroHabilitacao: '',
+    nome: ''
   });
 
   const {
@@ -22,7 +23,7 @@ function FormLoginCunductor() {
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaLoginCunductor) });
-  const handleSubmit = ({ id, numeroHabilitacao }: FieldValues) => {
+  const handleSubmit = ({ name, numeroHabilitacao }: FieldValues) => {
     if (typeof setValue === 'function') {
       setValue({ ...value, id, numeroHabilitacao });
     }
