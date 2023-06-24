@@ -39,7 +39,7 @@ const states = [
   'SE',
   'TO'
 ];
-interface IRegisterUser {
+export interface IRegisterUser {
   nome: string;
   numeroDocumento: string;
   id: string;

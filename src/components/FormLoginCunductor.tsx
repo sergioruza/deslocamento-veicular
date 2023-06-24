@@ -13,7 +13,7 @@ import schemaLoginCunductor from 'validations/schemaLoginConductor';
 function FormLoginCunductor() {
   const route = useRouter();
   const [value, setValue] = useLocalStorage<IconductorStorage>('user', {
-    nome: '',
+    id: '',
     numeroHabilitacao: ''
   });
 
@@ -22,9 +22,9 @@ function FormLoginCunductor() {
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaLoginCunductor) });
-  const handleSubmit = ({ nome, numeroHabilitacao }: FieldValues) => {
+  const handleSubmit = ({ id, numeroHabilitacao }: FieldValues) => {
     if (typeof setValue === 'function') {
-      setValue({ ...value, nome, numeroHabilitacao });
+      setValue({ ...value, id, numeroHabilitacao });
     }
 
     route.push('/conductor-home');

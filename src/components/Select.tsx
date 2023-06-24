@@ -5,13 +5,14 @@ interface SelectProps {
   register: UseFormRegister<FieldValues>;
   label: string;
   name: string;
+  disabled?: boolean;
 }
 
-const Select = ({ options, register, label, name }: SelectProps) => {
+const Select = ({ options, register, label, name, disabled }: SelectProps) => {
   return (
     <div>
       <label>{label}</label>
-      <select {...register(name)}>
+      <select disabled={disabled} {...register(name)}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

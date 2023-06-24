@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Conductors from 'components/Conductors';
-import { car, conductor } from 'components/Conductors';
+import { car } from 'components/Conductors';
 import FormStartRide from 'components/FormStartRide';
 
 import axios from 'axios';
@@ -160,25 +160,22 @@ const mockCar = [
 ];
 function startRide() {
   const [idConductor, setIdConductor] = useState<number>();
-  const [conductors, setConductores] = useState();
-  const [cars, setCars] = useState();
-  const [idCar, setIdCar] = useState<number>();
+  const [conductors, setConductores] = useState([]);
+  const [cars, setCars] = useState<car[]>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     conductorAndVeichles();
+    setLoading(false);
   }, []);
 
   const conductorAndVeichles = async () => {
-    const getConductor = await axios.get(
-      'https://api-deslocamento.herokuapp.com/api/v1/Condutor'
-    );
-    const getCars = await axios.get(
-      'https://api-deslocamento.herokuapp.com/api/v1/Veiculo'
-    );
-    setConductores(getConductor.data);
-    setCars(getCars.data);
-    setLoading(false);
+    await axios
+      .get('https://api-deslocamento.herokuapp.com/api/v1/Condutor')
+      .then(({ data }) => setConductores(data));
+    await axios
+      .get('https://api-deslocamento.herokuapp.com/api/v1/Veiculo')
+      .then(({ data }) => setCars(data));
   };
   return (
     <div>
@@ -186,13 +183,11 @@ function startRide() {
         <span>Loading...</span>
       ) : (
         <>
-          <FormStartRide idConductor={idConductor} />
-          <Conductors
-            cars={cars}
-            setIdConductor={setIdConductor}
-            conductors={conductors}
-            setIdCar={setIdCar}
-          />
+          <Conductors setIdConductor={setIdConductor} conductors={conductors} />
+
+          {cars && cars.length > 0 && (
+            <FormStartRide cars={cars} idConductor={idConductor} />
+          )}
         </>
       )}
     </div>

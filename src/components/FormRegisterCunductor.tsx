@@ -12,14 +12,14 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import schemaRegisterConductor from 'validations/schemaRegisterConductor';
 
 export interface IconductorStorage {
-  nome: string;
+  id: string;
   numeroHabilitacao: string;
 }
 
 function FormRegisterCunductor() {
   const route = useRouter();
   const [value, setValue] = useLocalStorage<IconductorStorage>('conductor', {
-    nome: '',
+    id: '',
     numeroHabilitacao: ''
   });
   const {
@@ -40,7 +40,7 @@ function FormRegisterCunductor() {
     if (typeof setValue === 'function') {
       setValue({
         ...value,
-        nome: newValues.nome,
+        id: newValues.id,
         numeroHabilitacao: newValues.numeroHabilitacao
       });
     }
