@@ -57,7 +57,7 @@ function FormProfile() {
   const handleSubmit = async (newValues: FieldValues) => {
     delete newValues.id;
     await axios
-      .post('https://api-deslocamento.herokuapp.com/api/v1/Condutor', newValues)
+      .post('https://api-deslocamento.herokuapp.com/api/v1/Cliente', newValues)
       .then(() => window.location.reload());
   };
 
