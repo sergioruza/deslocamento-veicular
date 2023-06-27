@@ -3,12 +3,13 @@ interface ButtonProps {
   onClick?: () => void;
   actionName: string;
 }
-const Button = ({ type, onClick, actionName }: ButtonProps) => {
+import { Button } from '@mui/material';
+const DefaultButton = ({ type, onClick, actionName }: ButtonProps) => {
   return (
-    <button type={type} onClick={onClick}>
+    <Button type={type} onClick={onClick}>
       {actionName}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default DefaultButton;
