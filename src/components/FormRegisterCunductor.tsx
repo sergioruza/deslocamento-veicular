@@ -8,40 +8,53 @@ import Select from './Select';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import { format } from 'date-fns';
 import useLocalStorage from 'hooks/useLocalStorage';
 import schemaRegisterConductor from 'validations/schemaRegisterConductor';
 
 export interface IconductorStorage {
   id: string;
-  numeroHabilitacao: string;
+  nome: string;
 }
 
 function FormRegisterCunductor() {
   const route = useRouter();
   const [value, setValue] = useLocalStorage<IconductorStorage>('conductor', {
     id: '',
-    numeroHabilitacao: ''
+    nome: ''
   });
   const {
     register,
     handleSubmit: onSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schemaRegisterConductor) });
-  const handleSubmit = async (newValues: FieldValues) => {
+  const handleSubmit = async ({
+    nome,
+    numeroHabilitacao,
+    categoriaHabilitacao,
+    vencimentoHabilitacao
+  }: FieldValues) => {
+    // if (request.status !== 200) {
+    //   return alert('Algum erro aconteceu, tente novamente');
+    // }
+
+    const formatDate = format(
+      new Date(vencimentoHabilitacao),
+      "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    );
     const request = await axios.post(
       'https://api-deslocamento.herokuapp.com/api/v1/Condutor',
       {
-        ...newValues
+        nome,
+        numeroHabilitacao,
+        categoriaHabilitacao,
+        vencimentoHabilitacao: formatDate
       }
     );
-    if (request.status !== 200) {
-      return alert('Algum erro aconteceu, tente novamente');
-    }
     if (typeof setValue === 'function') {
       setValue({
-        ...value,
-        id: newValues.id,
-        numeroHabilitacao: newValues.numeroHabilitacao
+        id: request.data,
+        nome
       });
     }
     route.push('/conductor-home');
