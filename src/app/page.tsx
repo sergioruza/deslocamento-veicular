@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { Button } from '@mui/material';
+
 export default function Home() {
   const [expandido, setExpandido] = useState(false);
 
@@ -20,9 +22,9 @@ export default function Home() {
       <button>
         <Link href="/signup-form/customer">Cadastre-se</Link>
       </button>
-      <button>
+      <Button variant="contained">
         <Link href="/signup-form/conductor">Trabalhe como motorista</Link>
-      </button>
+      </Button>
     </div>
   );
 }
