@@ -11,9 +11,7 @@ import type {
 import { CacheProvider as DefaultCacheProvider } from '@emotion/react';
 
 export type NextAppDirEmotionCacheProviderProps = {
-  /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
   options: Omit<OptionsOfCreateCache, 'insertionPoint'>;
-  /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
   CacheProvider?: (props: {
     value: EmotionCache;
     children: React.ReactNode;
@@ -21,7 +19,6 @@ export type NextAppDirEmotionCacheProviderProps = {
   children: React.ReactNode;
 };
 
-// This implementation is taken from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
 export function NextAppDirEmotionCacheProvider(
   props: NextAppDirEmotionCacheProviderProps
 ) {
@@ -40,7 +37,6 @@ export function NextAppDirEmotionCacheProvider(
       }
       return prevInsert(...args);
     };
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const flush = () => {
       const prevInserted = inserted;
       inserted = [];
@@ -55,7 +51,6 @@ export function NextAppDirEmotionCacheProvider(
       return null;
     }
     let styles = '';
-    // eslint-disable-next-line no-restricted-syntax
     for (const name of names) {
       styles += cache.inserted[name];
     }
@@ -63,7 +58,6 @@ export function NextAppDirEmotionCacheProvider(
       <style
         key={cache.key}
         data-emotion={`${cache.key} ${names.join(' ')}`}
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: styles
         }}
