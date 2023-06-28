@@ -10,20 +10,6 @@ interface ICardRideDetails {
   observacao: string;
 }
 
-const mock = {
-  id: 48,
-  kmInicial: 0,
-  kmFinal: null,
-  inicioDeslocamento: '2023-06-15T16:15:00',
-  fimDeslocamento: null,
-  checkList: '',
-  motivo: '',
-  observacao: 'Test 2',
-  idCondutor: 94,
-  idVeiculo: 50,
-  idCliente: 248
-};
-
 function CardRideDetails({
   kmInicial,
   kmFinal,
@@ -35,13 +21,13 @@ function CardRideDetails({
 }: ICardRideDetails) {
   return (
     <div>
-      <span>KM Inicial: {mock.kmInicial}</span>
-      <span>KM Final: {mock.kmFinal}</span>
-      <span>Início do Deslocamento: {mock.inicioDeslocamento}</span>
-      <span>Fim do Deslocamento: {mock.fimDeslocamento}</span>
-      <span>CheckList: {mock.checkList}</span>
-      <span>Motivo: {mock.motivo}</span>
-      <span>Observação: {mock.observacao}</span>
+      <span>KM Inicial: {kmInicial}</span>
+      <span>KM Final: {kmFinal}</span>
+      <span>Início do Deslocamento: {inicioDeslocamento}</span>
+      <span>Fim do Deslocamento: {fimDeslocamento}</span>
+      <span>CheckList: {checkList}</span>
+      <span>Motivo: {motivo}</span>
+      <span>Observação: {observacao}</span>
     </div>
   );
 }

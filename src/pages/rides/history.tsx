@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import RidesComponent from 'components/RidesComponent';
 
+import { Box } from '@mui/material';
 import axios from 'axios';
 
 function history() {
@@ -16,7 +17,20 @@ function history() {
     getRides();
   }, []);
 
-  return <div>{<RidesComponent rides={rides} />}</div>;
+  return (
+    <Box
+      sx={{
+        border: 'solid red 1px',
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+      }}
+    >
+      {<RidesComponent rides={rides} />}
+    </Box>
+  );
 }
 
 export default history;

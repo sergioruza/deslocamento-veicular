@@ -1,8 +1,7 @@
 'use client';
-import Link from 'next/link';
 import { useState } from 'react';
 
-import { Button } from '@mui/material';
+import { Box, Button, Link } from '@mui/material';
 
 export default function Home() {
   const [expandido, setExpandido] = useState(false);
@@ -11,20 +10,38 @@ export default function Home() {
     setExpandido(!expandido);
   };
   return (
-    <div>
-      <Button onClick={handleExpandir}>Login</Button>
-      {expandido && (
-        <div>
-          <Link href="/signin-form/customer">Cliente</Link>
-          <Link href="/signin-form/conductor">Condutor</Link>
-        </div>
-      )}
-      <Button>
-        <Link href="/signup-form/customer">Cadastre-se</Link>
+    <Box
+      sx={{
+        margin: '10px',
+        backgroundColor: '',
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}
+    >
+      <Button color="secondary" variant="contained">
+        <Link underline="none" href="/signup-form/conductor">
+          Trabalhe como motorista
+        </Link>
       </Button>
-      <Button variant="contained">
-        <Link href="/signup-form/conductor">Trabalhe como motorista</Link>
-      </Button>
-    </div>
+
+      <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+        <Button
+          sx={{ margin: '5px', textDecoration: 'none' }}
+          variant="contained"
+          onClick={handleExpandir}
+        >
+          Login
+        </Button>
+        {expandido && (
+          <div>
+            <Link href="/signin-form/customer">Cliente</Link>
+            <Link href="/signin-form/conductor">Condutor</Link>
+          </div>
+        )}
+        <Button sx={{ margin: '5px' }} variant="contained">
+          <Link href="/signup-form/customer">Cadastre-se</Link>
+        </Button>
+      </Box>
+    </Box>
   );
 }

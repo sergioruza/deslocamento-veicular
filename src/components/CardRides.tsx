@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { Card, CardContent, Typography } from '@mui/material';
+import { format } from 'date-fns';
+
 interface IRide {
   id: number;
   kmInicial: number;
@@ -20,13 +23,20 @@ function CardRides({
   function handleClick(id: number) {
     route.push(`/rides/${id}`);
   }
+  const date = new Date(inicioDeslocamento);
+  const dateFormat = format(date, 'dd/MM/yyyy');
   return (
-    <div onClick={() => handleClick(id)}>
-      <span>Km inicial: {kmInicial}</span>
-      <span>Km final: {kmFinal}</span>
-      <span>Inicio: {inicioDeslocamento}</span>
-      <span>Chegada: {fimDeslocamento}</span>
-    </div>
+    <Card
+      sx={{ maxWidth: 300, cursor: 'pointer', border: 'solid red 1px' }}
+      onClick={() => handleClick(id)}
+    >
+      <CardContent>
+        <Typography>Km inicial: {kmInicial}</Typography>
+        <Typography>Km final: {kmFinal}</Typography>
+        <Typography>Inicio: {dateFormat}</Typography>
+        <Typography>Chegada: {fimDeslocamento}</Typography>
+      </CardContent>
+    </Card>
   );
 }
 
