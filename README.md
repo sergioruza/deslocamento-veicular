@@ -18,11 +18,7 @@ $ npm install
 
 # Inicie o projeto
 $ npm run dev
-# [nodemon] starting `node server.js`
-# Express server listening on port 3000
 ```
-# CRUD
-
 ## Introdução
 
 Este projeto possui o objetivo principal de simular uma aplicação de "frete"
