@@ -1,5 +1,7 @@
 import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
 
+import { TextField } from '@mui/material';
+
 interface InputProps {
   placeholder: string;
   register: UseFormRegister<FieldValues>;
@@ -20,8 +22,8 @@ function Input({
 }: InputProps) {
   return (
     <div>
-      <label>{label}</label>
-      <input
+      <TextField
+        label={label}
         disabled={disabled}
         type={type}
         placeholder={placeholder}

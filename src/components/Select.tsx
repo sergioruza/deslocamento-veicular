@@ -1,5 +1,7 @@
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+
 interface SelectProps {
   options: string[];
   register: UseFormRegister<FieldValues>;
@@ -8,19 +10,25 @@ interface SelectProps {
   disabled?: boolean;
 }
 
-const Select = ({ options, register, label, name, disabled }: SelectProps) => {
+const DefaultSelect = ({
+  options,
+  register,
+  label,
+  name,
+  disabled
+}: SelectProps) => {
   return (
-    <div>
-      <label>{label}</label>
-      <select disabled={disabled} {...register(name)}>
+    <FormControl>
+      <InputLabel>{label}</InputLabel>
+      <Select disabled={disabled} {...register(name)}>
         {options.map((option) => (
-          <option key={option} value={option}>
+          <MenuItem key={option} value={option}>
             {option}
-          </option>
+          </MenuItem>
         ))}
-      </select>
-    </div>
+      </Select>
+    </FormControl>
   );
 };
 
-export default Select;
+export default DefaultSelect;

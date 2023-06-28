@@ -2,6 +2,8 @@ import React from 'react';
 
 import CardRides from './CardRides';
 
+import { Box } from '@mui/material';
+
 export interface IRides {
   id: number;
   kmInicial: number;
@@ -22,7 +24,13 @@ interface CardRidesProps {
 
 function RidesComponent({ rides }: CardRidesProps) {
   return (
-    <div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignContent: 'center'
+      }}
+    >
       {rides.map(
         ({ kmInicial, kmFinal, inicioDeslocamento, fimDeslocamento, id }) => {
           return (
@@ -37,7 +45,7 @@ function RidesComponent({ rides }: CardRidesProps) {
           );
         }
       )}
-    </div>
+    </Box>
   );
 }
 

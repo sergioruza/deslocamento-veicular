@@ -7,7 +7,6 @@ import { car } from 'components/Conductors';
 import Button from './Button';
 import Input from './Input';
 
-import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 
 interface IFormStartRideProps {
