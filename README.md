@@ -8,10 +8,10 @@ Para executar o projeto, utilize as ferramentas descritas na sessão *Ferramenta
 ```bash
 
 # Faça o clone
-$ git clone git@github.com:sergioruza/vagas.git
+$ git clone git@github.com:sergioruza/deslocamento-veicular.git
 
 # Acesse a pasta
-$ cd vagas
+$ cd deslocamento-veicular
 
 # Instale as dependências local
 $ npm install
